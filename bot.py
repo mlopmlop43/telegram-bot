@@ -1,5 +1,4 @@
 
-
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler
 
@@ -16,7 +15,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🎬 أفلام ميراكلوس", callback_data="movies")],
         [InlineKeyboardButton("🎞️ حلقات خاصة", callback_data="special")],
         [InlineKeyboardButton("📺 مواسم", callback_data="seasons")],
-        [InlineKeyboardButton("🎥 عرض فيديو تعليمي", callback_data="send_video")],
         [InlineKeyboardButton("💥 مقتطفات ميراكلس", callback_data="miraculous_clips")],
         [InlineKeyboardButton("⏳ مقتطفات وقت المغامرة", callback_data="adventure_time_clips")],
     ]
@@ -38,24 +36,20 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.message.reply_text(
             "📺 المواسم: \n1- الموسم الأول\n2- الموسم الثاني...\n(قريباً)"
         )
-    elif query.data == "send_video":
-        video_link = "https://t.me/miracl15/45"
-        await query.message.reply_text(f"شاهد الفيديو من هنا:\n{video_link}")
     elif query.data == "miraculous_clips":
         clips_text = (
             "💥 مقتطفات ميراكلس:\n"
-            "1. مقتطف 1: https://t.me/c/1994244688/5972/6006"
-            "2. مقتطف 2: https://t.me/c/1994244688/5972/6005"
-            "3. مقتطف 3: https://t.me/c/1994244688/5972/6003"
+            "1. مقتطف 1: https://t.me/c/1994244688/5972/6006\n"
+            "2. مقتطف 2: https://t.me/c/1994244688/5972/6005\n"
+            "3. مقتطف 3: https://t.me/c/1994244688/5972/6003\n"
             "\nتابع القناة لمزيد من المقتطفات!"
         )
         await query.message.reply_text(clips_text)
     elif query.data == "adventure_time_clips":
         adventure_clips_text = (
             "⏳ مقتطفات وقت المغامرة:\n"
-            "1. مقتطف 1: https://t.me/c/1994244688/5972/6007"
-            "2. مقتطف 2: https://t.me/c/1994244688/5972/6008"
-            "3. مقتطف 3: "
+            "1. مقتطف 1: https://t.me/c/1994244688/5972/6007\n"
+            "2. مقتطف 2: https://t.me/c/1994244688/5972/6008\n"
             "\nاستمتع بالمشاهدة!"
         )
         await query.message.reply_text(adventure_clips_text)
