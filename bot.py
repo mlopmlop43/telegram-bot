@@ -1,42 +1,67 @@
 
-
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler
 
 TOKEN = "7375363650:AAG1VYvYg4G4RB-w_0ugesTxnE1JZfgC6Mg"
 
-# ✅ file_id للفيديوهات (لن تُعرض للمستخدم)
-VIDEO_IDS = {
-    "miraculous_clip1": "https://t.me/c/1994244688/5972/6006",
-    "miraculous_clip2": "https://t.me/c/1994244688/5972/6005",
-    "adventure_clip1": "https://t.me/c/1994244688/5972/6008",
-    "adventure_clip2": "https://t.me/c/1994244688/5972/6007",
-}
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = """👋 أهلاً!
+
+قناة البوت: https://t.me/alfarabic (انضم)
+
+✅ مالك البوت: "@Yaaaaafkk"
+
     keyboard = [
-        [InlineKeyboardButton("🐞 مقتطف 1 من ميراكلوس", callback_data="miraculous_clip1")],
-        [InlineKeyboardButton("🐞 مقتطف 2 من ميراكلوس", callback_data="miraculous_clip2")],
-        [InlineKeyboardButton("⏰ مقتطف 1 من وقت المغامرة", callback_data="adventure_clip1")],
-        [InlineKeyboardButton("⏰ مقتطف 2 من وقت المغامرة", callback_data="adventure_clip2")],
+        [InlineKeyboardButton("⏯️ كيفية استخدام البوت للمشاهدة", callback_data="how_to_use")],
+        [InlineKeyboardButton("🎬 أفلام ميراكلوس", callback_data="movies")],
+        [InlineKeyboardButton("🎞️ حلقات خاصة", callback_data="special")],
+        [InlineKeyboardButton("📺 مواسم", callback_data="seasons")],
+        [InlineKeyboardButton("🎥 عرض فيديو تعليمي", callback_data="send_video")],
+        [InlineKeyboardButton("💥 مقتطفات ميراكلس", callback_data="miraculous_clips")],
+        [InlineKeyboardButton("⏳ مقتطفات وقت المغامرة", callback_data="adventure_time_clips")],  # الزر الجديد
     ]
-    await update.message.reply_text("🎬 اختر مقتطفاً للمشاهدة:", reply_markup=InlineKeyboardMarkup(keyboard))
+
+    await update.message.reply_text(text, reply_markup=InlineKeyboardMarkup(keyboard))
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    video_id = VIDEO_IDS.get(query.data)
-    if video_id:
-        await query.message.reply_video(video_id)
-    else:
-        await query.message.reply_text("❌ المقطع غير متوفر حالياً.")
+    if query.data == "how_to_use":
+        await query.message.reply_text("🎥 فقط اختر القسم المطلوب، وسيظهر لك الفيديو.\n✅ لا تنس الانضمام إلى القنوات.")
+    elif query.data == "movies":
+        await query.message.reply_text("🎬 قائمة أفلام ميراكلوس (قريباً).")
+    elif query.data == "special":
+        await query.message.reply_text("🎞️ حلقات خاصة (قريباً).")
+    elif query.data == "seasons":
+        await query.message.reply_text("📺 المواسم: \n1- الموسم الأول\n2- الموسم الثاني...\n(قريباً)")
+    elif query.data == "send_video":
+        video_link = "https://t.me/miracl15/45"
+        await query.message.reply_text(f"شاهد الفيديو من هنا:\n{video_link}")
+    elif query.data == "miraculous_clips":
+        clips_text = (
+            "💥 مقتطفات ميراكلس:\n"
+            "1. مقتطف 1: https://t.me/c/1994244688/5972/6006"
+            "2. مقتطف 2: https://t.me/c/1994244688/5972/6005"
+            "3. مقتطف 3: https://t.me/c/1994244688/5972/6003"
+            "\nتابع القناة لمزيد من المقتطفات!"
+        )
+        await query.message.reply_text(clips_text)
+    elif query.data == "adventure_time_clips":
+        adventure_clips_text = (
+            "⏳ مقتطفات وقت المغامرة:\n"
+            "1. مقتطف 1: https://t.me/c/1994244688/5972/6007"
+            "2. مقتطف 2: https://t.me/c/1994244688/5972/6008"
+            "3. مقتطف 3: https://t.me/adventuretime/203\n"
+            "\nاستمتع بالمشاهدة!"
+        )
+        await query.message.reply_text(adventure_clips_text)
 
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
-    print("✅ البوت يعمل الآن...")
+    print("✅ البوت شغال...")
     app.run_polling()
 
 if __name__ == "__main__":
