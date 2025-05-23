@@ -6,16 +6,16 @@ TOKEN = "7375363650:AAG1VYvYg4G4RB-w_0ugesTxnE1JZfgC6Mg"
 
 # روابط الحلقات
 EPISODES = {
-    '1': 'https://t.me/c/1927164880/425',
-    '2': 'https://t.me/c/1927164880/430',
-    '3': 'https://t.me/c/1927164880/431',
-    '4': 'https://t.me/yourchannel/4',
-    '5': 'https://t.me/yourchannel/5',
-    '6': 'https://t.me/yourchannel/6',
-    '7': 'https://t.me/yourchannel/7',
-    '8': 'https://t.me/yourchannel/8',
-    '9': 'https://t.me/yourchannel/9',
-    '10': 'https://t.me/yourchannel/10'
+    ' مقتطف طويل من ميراكلس الموسم 6': 'https://t.me/c/1927164880/425',
+    'مقتطف من وقتل المغامرة1': 'https://t.me/c/1927164880/430',
+    'مقتطف من وقتل المغامرة2': 'https://t.me/c/1927164880/431',
+    '4': '',
+    '5': '',
+    '6': '',
+    '7': '',
+    '8': '',
+    '9': '',
+    '10': ''
 }
 
 # إنشاء الأزرار حسب الصفحة
