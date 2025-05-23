@@ -37,7 +37,10 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", start))
     app.add_handler(CommandHandler("menu", start))
-    app.add_handler(telegram.ext.CallbackQueryHandler(button_handler))
+    from telegram.ext import CallbackQueryHandler
+...
+app.add_handler(CallbackQueryHandler(button_handler))
+
     print("✅ البوت شغال...")
     app.run_polling()
 
