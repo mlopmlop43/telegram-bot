@@ -18,13 +18,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    choice = query.data
-    if choice == 'episodes':
-        await query.edit_message_text("🟢 هذه قائمة الحلقات...")
-    elif choice == 'movies':
-        await query.edit_message_text("🟢 هذه قائمة الأفلام...")
-    elif choice == 'documentaries':
-        await query.edit_message_text("🟢 هذه قائمة الوثائقيات...")
        if choice == 'episodes':
         episodes_text = (
             "📺 *قائمة الحلقات:*\n"
