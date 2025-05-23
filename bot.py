@@ -25,7 +25,20 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text("🟢 هذه قائمة الأفلام...")
     elif choice == 'documentaries':
         await query.edit_message_text("🟢 هذه قائمة الوثائقيات...")
+       if choice == 'episodes':
+        episodes_text = (
+            "📺 *قائمة الحلقات:*\n"
+            "1️⃣ [الحلقة 1](https://t.me/link1)\n"
+            "2️⃣ [الحلقة 2](https://t.me/link2)\n"
+            "3️⃣ [الحلقة 3](https://t.me/link3)\n"
+        )
+        await query.edit_message_text(episodes_text, parse_mode="Markdown")
+    
+    elif choice == 'movies':
+        await query.edit_message_text("🎬 هذه قائمة الأفلام...")
 
+    elif choice == 'cartoons':
+        await query.edit_message_text("👶 هذه قائمة الكرتون...")
 # تشغيل البوت
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
@@ -38,23 +51,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer()
-
-    choice = query.data
-
-    if choice == 'episodes':
-        episodes_text = (
-            "📺 *قائمة الحلقات:*\n"
-            "1️⃣ [الحلقة 1](https://t.me/c/1927164880/431)\n"
-            "2️⃣ [الحلقة 2](https://t.me/c/1927164880/430)\n"
-            "3️⃣ [الحلقة 3](https://t.me/c/1927164880/425)\n"
-        )
-        await query.edit_message_text(episodes_text, parse_mode="Markdown")
-    
-    elif choice == 'movies':
-        await query.edit_message_text("🎬 هذه قائمة الأفلام...")
-
-    elif choice == 'cartoons':
-        await query.edit_message_text("👶 هذه قائمة الكرتون...")
