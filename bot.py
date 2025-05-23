@@ -1,35 +1,39 @@
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
-episodes = [
-    "الحلقة 1: مقدمة عن التكنولوجيا",
-    "الحلقة 2: تطور الهواتف الذكية",
-    "الحلقة 3: تأثير الإنترنت على الحياة اليومية",
-]
+TOKEN = "ضع_توكن_البوت_هنا"
 
+# دالة بدء البوت
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        "مرحبًا! أرسل /episode رقم_الحلقة للحصول على الحلقة المطلوبة.\nمثال: /episode 1"
-    )
+    keyboard = [
+        [InlineKeyboardButton("📺 حلقات", callback_data='episodes')],
+        [InlineKeyboardButton("🎬 أفلام", callback_data='movies')],
+        [InlineKeyboardButton("📚 وثائقيات", callback_data='documentaries')]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("ماذا تود مشاهدة؟ 👇", reply_markup=reply_markup)
 
-async def episode(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        num = int(context.args[0])
-        if 1 <= num <= len(episodes):
-            await update.message.reply_text(episodes[num - 1])
-        else:
-            await update.message.reply_text("عذرًا، رقم الحلقة غير موجود.")
-    except (IndexError, ValueError):
-        await update.message.reply_text("يرجى إرسال رقم الحلقة بعد الأمر، مثل: /episode 2")
+# دالة استقبال الرد
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
 
+    choice = query.data
+    if choice == 'episodes':
+        await query.edit_message_text("🟢 هذه قائمة الحلقات...")
+    elif choice == 'movies':
+        await query.edit_message_text("🟢 هذه قائمة الأفلام...")
+    elif choice == 'documentaries':
+        await query.edit_message_text("🟢 هذه قائمة الوثائقيات...")
+
+# تشغيل البوت
 def main():
-    TOKEN = "7375363650:AAG1VYvYg4G4RB-w_0ugesTxnE1JZfgC6Mg"  # استبدل هنا بالتوكن الحقيقي
-
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("episode", episode))
+    app.add_handler(CallbackQueryHandler(button_handler))
 
+    print("✅ البوت يعمل الآن...")
     app.run_polling()
 
 if __name__ == '__main__':
